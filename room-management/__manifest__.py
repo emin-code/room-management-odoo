@@ -17,7 +17,7 @@
     # for the full list
     'category': 'Productivity',
     'version': '0.1',
-    'license': 'GNU GPL-3',
+    'license': 'GPL-3',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'hr'],
