@@ -1,0 +1,112 @@
+<odoo>
+    <!--Menu Items-->
+    <menuitem
+            name="Rooms"
+            id="rooms_root"
+    />
+    <menuitem name="Management" id="rooms.management" parent="rooms_root"/>
+    <menuitem name="Rooms management" id="rooms.room" parent="rooms.management" groups="base.group_user" action="manage_action"/>
+    <menuitem name="Reservation events" id="rooms.reservations" parent="rooms.management" groups="base.group_user" action="rooms.res_manage_action"/>
+    <menuitem name="Configuration" id="rooms.configuration" parent="rooms_root"/>
+    <menuitem name="Settings" id="rooms.settings" parent="rooms.configuration" groups="base.group_user"/>
+
+    <!--Actions-->
+    <record id="manage_action" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">rooms.room</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a room
+            </p><p>
+        </p>
+        </field>
+    </record>
+
+    <!--Views-->
+    <!--Form View-->
+    <record id="room_form_view" model="ir.ui.view">
+        <field name="name">Room</field>
+        <field name="model">rooms.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(rooms.create_reservation_wizard)d" type="action" class="oe_highlight" string="Reserve"/>
+<!--                    <button name="action_update" type="object" class="btn" string="Update Manually" help="Click to immediately update  rooms info"/>-->
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="number"/>
+                        <field name="description"/>
+                        <field name="res_events" attrs="{'invisible': [('is_show_events', '=', False)]}"/>
+                        <field name="status"/>
+                        <field name="is_show_events" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--Tree View-->
+    <record id="room_tree_view" model="ir.ui.view">
+        <field name="name">Room</field>
+        <field name="model">rooms.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="status"/>
+                <field name="number"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <!-- kanban view -->
+    <record id="room_kanban" model="ir.ui.view">
+        <field name="name">room.kanban</field>
+        <field name="model">rooms.room</field>
+        <field name="arch" type="xml">
+            <kanban class="">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="number"/>
+                <field name="description"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <strong>
+                                    <!-- title -->
+                                    <!--                                    Room name:-->
+                                    <field name="name"/>
+                                    </strong>
+                                    <br/>
+                                    <!--                                    Start date:-->
+                                    <field name="description"/>
+                                    <br/>
+                                    <!--                                    duration:-->
+                                    <!--                                    <field name="duration"/>-->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

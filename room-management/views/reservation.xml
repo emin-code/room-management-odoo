@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_manage_action" model="ir.actions.act_window">
+        <field name="name">Reservations</field>
+        <field name="res_model">rooms.reservation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create new reservation event
+            </p><p>
+        </p>
+        </field>
+    </record>
+
+    <record id="res_form_view" model="ir.ui.view">
+        <field name="name">Reservation</field>
+        <field name="model">rooms.reservation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="room_id"/>
+                        <field name="start_date"/>
+                        <field name="duration"/>
+                        <field name="end_date"/>
+                        <field name="person_in_charge"/>
+                        <field name="reason"/>
+                    </group>
+                    <button name="set_state_confirm" type="object" class="btn-primary" string="Next"/>
+                    <button name="set_state_done" type="object" class="btn" string="Confirm"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_tree_view" model="ir.ui.view">
+        <field name="name">Reservation</field>
+        <field name="model">rooms.reservation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="room_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="person_in_charge"/>
+                <field name="reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- calendar view -->
+    <record id="res_calendar_view" model="ir.ui.view">
+        <field name="name">room.calendar</field>
+        <field name="model">rooms.reservation</field>
+        <field name="arch" type="xml">
+            <calendar string="Reserving Calendar" date_start="start_date" date_stop="end_date">
+            </calendar>
+        </field>
+    </record>
+
+</odoo>
