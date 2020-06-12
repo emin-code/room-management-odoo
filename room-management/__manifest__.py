@@ -25,11 +25,11 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'wizard/create_reservation.xml',
         'views/reservation.xml',
         'views/room.xml',
         'data/cron_rooms_event.xml',
         'data/cron_reservation_event.xml',
-        'wizard/create_reservation.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
